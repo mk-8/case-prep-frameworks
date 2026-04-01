@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McKinsey Case Interview — Framework Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a0f1e;
+    --navy2: #111827;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --teal: #1e8c8c;
+    --teal-light: #2ab8b8;
+    --rose: #b84c6a;
+    --rose-light: #e06080;
+    --sage: #3a7d5a;
+    --sage-light: #4da876;
+    --violet: #6a4cb8;
+    --violet-light: #8c6ce0;
+    --cream: #f5f0e8;
+    --muted: #8899aa;
+    --border: rgba(201,168,76,0.2);
+    --card-bg: rgba(255,255,255,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+    max-width: 700px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+  }
+  .hero-pills {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── NAV TABS ── */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    padding: 0 60px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 18px 24px;
+    border: none;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--cream); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── MAIN LAYOUT ── */
+  .content { padding: 50px 60px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── MECE EXPLAINER ── */
+  .mece-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .mece-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .mece-card .icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+  .mece-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .mece-card p { font-size: 14px; color: var(--muted); }
+
+  .rule-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.02));
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .rule-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .rule-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rule-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--cream);
+  }
+  .rule-list li::before {
+    content: '→';
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── SECTION TITLE ── */
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .sec-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  /* ── CASE TYPE CARDS ── */
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .case-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .case-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+
+  .case-header {
+    padding: 22px 26px 18px;
+    position: relative;
+  }
+  .case-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 6px;
+  }
+  .case-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .case-trigger {
+    font-size: 12px;
+    margin-top: 6px;
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  .case-body { padding: 6px 26px 24px; }
+
+  .bucket {
+    margin-bottom: 16px;
+  }
+  .bucket-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .bucket-points {
+    list-style: none;
+    padding-left: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .bucket-points li {
+    font-size: 13px;
+    color: rgba(245,240,232,0.75);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .bucket-points li::before {
+    content: '·';
+    font-size: 18px;
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+
+  /* COLOR THEMES per case type */
+  .theme-teal .case-header { background: linear-gradient(135deg, rgba(30,140,140,0.25), rgba(30,140,140,0.05)); border-bottom: 1px solid rgba(30,140,140,0.3); }
+  .theme-teal .case-tag { color: var(--teal-light); }
+  .theme-teal .bucket-label { background: rgba(30,140,140,0.15); color: var(--teal-light); }
+  .theme-teal .bucket-points li::before { color: var(--teal-light); }
+  .theme-teal { border-color: rgba(30,140,140,0.2); }
+
+  .theme-rose .case-header { background: linear-gradient(135deg, rgba(184,76,106,0.25), rgba(184,76,106,0.05)); border-bottom: 1px solid rgba(184,76,106,0.3); }
+  .theme-rose .case-tag { color: var(--rose-light); }
+  .theme-rose .bucket-label { background: rgba(184,76,106,0.15); color: var(--rose-light); }
+  .theme-rose .bucket-points li::before { color: var(--rose-light); }
+  .theme-rose { border-color: rgba(184,76,106,0.2); }
+
+  .theme-gold .case-header { background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(201,168,76,0.05)); border-bottom: 1px solid rgba(201,168,76,0.3); }
+  .theme-gold .case-tag { color: var(--gold-light); }
+  .theme-gold .bucket-label { background: rgba(201,168,76,0.15); color: var(--gold-light); }
+  .theme-gold .bucket-points li::before { color: var(--gold-light); }
+  .theme-gold { border-color: rgba(201,168,76,0.2); }
+
+  .theme-sage .case-header { background: linear-gradient(135deg, rgba(58,125,90,0.25), rgba(58,125,90,0.05)); border-bottom: 1px solid rgba(58,125,90,0.3); }
+  .theme-sage .case-tag { color: var(--sage-light); }
+  .theme-sage .bucket-label { background: rgba(58,125,90,0.15); color: var(--sage-light); }
+  .theme-sage .bucket-points li::before { color: var(--sage-light); }
+  .theme-sage { border-color: rgba(58,125,90,0.2); }
+
+  .theme-violet .case-header { background: linear-gradient(135deg, rgba(106,76,184,0.25), rgba(106,76,184,0.05)); border-bottom: 1px solid rgba(106,76,184,0.3); }
+  .theme-violet .case-tag { color: var(--violet-light); }
+  .theme-violet .bucket-label { background: rgba(106,76,184,0.15); color: var(--violet-light); }
+  .theme-violet .bucket-points li::before { color: var(--violet-light); }
+  .theme-violet { border-color: rgba(106,76,184,0.2); }
+
+  /* ── MENTAL TRIGGERS TABLE ── */
+  .triggers-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .triggers-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .triggers-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  .triggers-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .kw-pill {
+    display: inline-block;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px 2px 2px 0;
+  }
+  .type-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* ── BUILDING BLOCKS ── */
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .block-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    background: var(--card-bg);
+  }
+  .block-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .block-desc { font-size: 13px; color: var(--muted); }
+
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .do-box, .dont-box {
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .do-box {
+    background: rgba(58,125,90,0.1);
+    border: 1px solid rgba(58,125,90,0.3);
+  }
+  .dont-box {
+    background: rgba(184,76,106,0.1);
+    border: 1px solid rgba(184,76,106,0.3);
+  }
+  .do-box h4 { color: var(--sage-light); margin-bottom: 12px; font-size: 13px; letter-spacing: 1px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+  .dont-box h4 { color: var(--rose-light); margin-bottom: 12px; font-size: 13px; letter-spacing: 1px; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+  .do-box ul, .dont-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .do-box li, .dont-box li { font-size: 13px; color: var(--cream); display: flex; gap: 8px; }
+  .do-box li::before { content: '✓'; color: var(--sage-light); flex-shrink: 0; }
+  .dont-box li::before { content: '✗'; color: var(--rose-light); flex-shrink: 0; }
+
+  /* ── PROFIT TREE ── */
+  .tree-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    min-width: 700px;
+  }
+  .tree-row { display: flex; gap: 24px; align-items: flex-start; justify-content: center; }
+  .tree-node {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-align: center;
+    position: relative;
+  }
+  .tree-node.root { background: rgba(201,168,76,0.2); border: 1px solid var(--gold); color: var(--gold-light); font-size: 14px; padding: 14px 28px; }
+  .tree-node.l1-r { background: rgba(30,140,140,0.15); border: 1px solid rgba(30,140,140,0.4); color: var(--teal-light); }
+  .tree-node.l1-c { background: rgba(184,76,106,0.15); border: 1px solid rgba(184,76,106,0.4); color: var(--rose-light); }
+  .tree-node.l2 { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--muted); font-size: 11px; padding: 8px 14px; }
+  .connector {
+    width: 2px;
+    background: var(--border);
+    margin: 0 auto;
+  }
+  .h-line { height: 24px; }
+  .branch-line { display: flex; justify-content: center; }
+
+  /* ── QUICK REF ── */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .qr-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .qr-card h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .qr-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .qr-item:last-child { border-bottom: none; }
+  .qr-key { color: var(--muted); }
+  .qr-val { color: var(--cream); font-family: 'DM Mono', monospace; font-size: 11px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero, .content, .tab-nav { padding-left: 24px; padding-right: 24px; }
+    .mece-grid, .blocks-grid, .do-dont, .qr-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section.active .case-card,
+  .section.active .mece-card,
+  .section.active .block-card,
+  .section.active .qr-card {
+    animation: fadeUp 0.4s ease both;
+  }
+  .section.active .case-card:nth-child(2) { animation-delay: 0.05s; }
+  .section.active .case-card:nth-child(3) { animation-delay: 0.10s; }
+  .section.active .case-card:nth-child(4) { animation-delay: 0.15s; }
+  .section.active .case-card:nth-child(5) { animation-delay: 0.20s; }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* scroll indicator */
+  .scroll-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-align: center;
+    padding: 16px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">McKinsey Case Interview Prep</div>
+  <h1>Framework <span>Mastery</span><br>for Any Case</h1>
+  <p class="hero-sub">Build intelligent, MECE frameworks — 3–4 buckets, 3 bullets each — that hit the nail every time, no matter the scenario.</p>
+  <div class="hero-pills">
+    <span class="pill">MECE Thinking</span>
+    <span class="pill">6 Case Types</span>
+    <span class="pill">Mental Triggers</span>
+    <span class="pill">Profit Trees</span>
+    <span class="pill">Do's & Don'ts</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="show('mece')">MECE Foundations</button>
+  <button class="tab-btn" onclick="show('frameworks')">Case Frameworks</button>
+  <button class="tab-btn" onclick="show('triggers')">Mental Triggers</button>
+  <button class="tab-btn" onclick="show('build')">Build a Framework</button>
+  <button class="tab-btn" onclick="show('quickref')">Quick Reference</button>
+</div>
+
+<!-- ═══════════════════ SECTION 1: MECE ═══════════════════ -->
+<div id="mece" class="section active content">
+  <p class="sec-title">MECE — The Golden Rule</p>
+  <p class="sec-sub">Mutually Exclusive, Collectively Exhaustive. Every framework bucket must pass this test.</p>
+
+  <div class="mece-grid">
+    <div class="mece-card">
+      <div class="icon">🔲</div>
+      <h3>Mutually Exclusive</h3>
+      <p>No overlap between buckets. If an issue fits into two buckets, your framework is broken. Each idea lives in exactly one home.</p>
+    </div>
+    <div class="mece-card">
+      <div class="icon">🌐</div>
+      <h3>Collectively Exhaustive</h3>
+      <p>Together, the buckets cover the entire problem space — nothing important is left out. A gap in coverage = a gap in your thinking.</p>
+    </div>
+    <div class="mece-card">
+      <div class="icon">🪣</div>
+      <h3>The 3–4 Bucket Rule</h3>
+      <p>3 buckets = elegant & memorable. 4 buckets = comprehensive. Never 5+. Interviewers want to see sharp prioritization, not exhaustion.</p>
+    </div>
+    <div class="mece-card">
+      <div class="icon">✏️</div>
+      <h3>3 Bullets Per Bucket</h3>
+      <p>Each bucket gets exactly 3 sub-points. This forces you to pre-select your highest-signal questions rather than brain-dumping everything.</p>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <h3>The MECE Self-Test (ask yourself every time)</h3>
+    <ul class="rule-list">
+      <li>Can I put any issue I might uncover into exactly ONE bucket? (Mutually Exclusive ✓)</li>
+      <li>If I explore every bucket fully, would I have covered the whole problem? (Collectively Exhaustive ✓)</li>
+      <li>Are my bucket names parallel in logic — all categories of the same thing (e.g., all value chain stages, or all stakeholders)?</li>
+      <li>Do my 3 bullets in each bucket represent the highest-impact sub-questions I should probe first?</li>
+      <li>Does the order of buckets reflect a logical flow — e.g., external → internal, or revenue → cost → capital?</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="sec-title" style="font-size:24px;">The Anatomy of a Perfect Bucket</p>
+  <div class="blocks-grid" style="margin-top:20px;">
+    <div class="block-card">
+      <div class="block-num">01</div>
+      <div class="block-title">Label</div>
+      <div class="block-desc">A clear, noun-phrase name. E.g., "Revenue Drivers" not "Money stuff." The interviewer should instantly know the territory.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">02</div>
+      <div class="block-title">3 Sub-points</div>
+      <div class="block-desc">The 3 most critical hypotheses or questions you'd explore inside this bucket. Specific enough to show insight, not just categories.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">03</div>
+      <div class="block-title">Signal Word</div>
+      <div class="block-desc">Start each sub-point with an action or question word: "Whether…", "To what extent…", "Is…". This shows analytical intent.</div>
+    </div>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h4>✓ Do This</h4>
+      <ul>
+        <li>Use parallel structure across all buckets</li>
+        <li>Name buckets at the same level of abstraction</li>
+        <li>Tailor buckets to the specific client/industry</li>
+        <li>Start with "the so what" — what does each bucket tell us?</li>
+        <li>State upfront what logic you're using to structure (e.g., "I'll look at this along the value chain")</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h4>✗ Avoid This</h4>
+      <ul>
+        <li>Memorizing templates and applying them robotically</li>
+        <li>Having a "Other / Miscellaneous" bucket</li>
+        <li>Mixing internal and external issues in the same bucket</li>
+        <li>Using generic labels: "Market," "Company," "Financials"</li>
+        <li>More than 4 buckets — signals you can't prioritize</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SECTION 2: FRAMEWORKS ═══════════════════ -->
+<div id="frameworks" class="section content">
+  <p class="sec-title">Case Frameworks by Type</p>
+  <p class="sec-sub">Each framework is pre-built MECE with 3–4 buckets and 3 bullets each. Adapt, never copy verbatim.</p>
+
+  <div class="case-grid">
+
+    <!-- PROFITABILITY -->
+    <div class="case-card theme-teal">
+      <div class="case-header">
+        <div class="case-tag">Case Type 01</div>
+        <div class="case-title">Profitability Decline</div>
+        <div class="case-trigger">Trigger: "Profits are down," "margins shrinking," "EBITDA dropped"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Revenue</span>
+          <ul class="bucket-points">
+            <li>Whether overall volume (units sold) has changed</li>
+            <li>Whether pricing or product mix has shifted</li>
+            <li>Whether specific geographies or segments are underperforming</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Cost Structure</span>
+          <ul class="bucket-points">
+            <li>Whether COGS has risen (input costs, labor, logistics)</li>
+            <li>Whether fixed overhead has expanded disproportionately</li>
+            <li>Whether one-time charges are distorting the picture</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">External Context</span>
+          <ul class="bucket-points">
+            <li>Whether competitors are facing the same decline (industry issue)</li>
+            <li>Whether macro factors (FX, regulation, inflation) are at play</li>
+            <li>Whether the issue is structural or cyclical</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKET ENTRY -->
+    <div class="case-card theme-rose">
+      <div class="case-header">
+        <div class="case-tag">Case Type 02</div>
+        <div class="case-title">Market Entry</div>
+        <div class="case-trigger">Trigger: "Should we enter X market," "expand to Y country," "launch new product"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Market Attractiveness</span>
+          <ul class="bucket-points">
+            <li>Whether the market size and growth rate are sufficient</li>
+            <li>Whether competitive intensity is manageable (Porter's lens)</li>
+            <li>Whether customer needs and willingness to pay are favorable</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Our Ability to Win</span>
+          <ul class="bucket-points">
+            <li>Whether we have a transferable competitive advantage</li>
+            <li>Whether we have the operational/financial capacity to enter</li>
+            <li>Whether our brand or relationships translate to this market</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Entry Strategy</span>
+          <ul class="bucket-points">
+            <li>Whether to build, buy, or partner to enter</li>
+            <li>What the optimal timing and sequencing looks like</li>
+            <li>Whether the financial return justifies the risk</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- M&A -->
+    <div class="case-card theme-gold">
+      <div class="case-header">
+        <div class="case-tag">Case Type 03</div>
+        <div class="case-title">M&A / Acquisition</div>
+        <div class="case-trigger">Trigger: "Should we acquire," "merger," "buying a company," "investment decision"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Strategic Fit</span>
+          <ul class="bucket-points">
+            <li>Whether the target aligns with our long-term strategic goals</li>
+            <li>Whether the acquisition fills a capability or market gap</li>
+            <li>Whether there are synergies (revenue or cost) and how real they are</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Target Quality</span>
+          <ul class="bucket-points">
+            <li>Whether the target's financials are healthy and growing</li>
+            <li>Whether there are hidden liabilities or risks in due diligence</li>
+            <li>Whether the management team and culture are compatible</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Deal Economics</span>
+          <ul class="bucket-points">
+            <li>Whether the valuation is fair relative to intrinsic value</li>
+            <li>Whether we can finance the deal without over-leveraging</li>
+            <li>Whether the expected IRR clears our hurdle rate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- GROWTH STRATEGY -->
+    <div class="case-card theme-sage">
+      <div class="case-header">
+        <div class="case-tag">Case Type 04</div>
+        <div class="case-title">Growth Strategy</div>
+        <div class="case-trigger">Trigger: "How do we grow," "double revenue," "increase market share," "new revenue streams"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Existing Business</span>
+          <ul class="bucket-points">
+            <li>Whether we can grow share with current customers (penetration)</li>
+            <li>Whether pricing optimization can unlock revenue</li>
+            <li>Whether reducing churn is a faster path than new acquisition</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">New Markets / Segments</span>
+          <ul class="bucket-points">
+            <li>Whether adjacent geographies offer accessible growth</li>
+            <li>Whether new customer segments are reachable with current assets</li>
+            <li>Whether distribution channel expansion can drive volume</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">New Products / Services</span>
+          <ul class="bucket-points">
+            <li>Whether product extensions meet unmet customer needs</li>
+            <li>Whether digital or service-layer offerings create recurring revenue</li>
+            <li>Whether partnerships or licensing accelerate product reach</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATIONS / COST REDUCTION -->
+    <div class="case-card theme-violet">
+      <div class="case-header">
+        <div class="case-tag">Case Type 05</div>
+        <div class="case-title">Operations / Cost Reduction</div>
+        <div class="case-trigger">Trigger: "Cut costs," "improve efficiency," "operations are bloated," "operational turnaround"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Supply-Side Costs</span>
+          <ul class="bucket-points">
+            <li>Whether procurement and sourcing costs can be renegotiated</li>
+            <li>Whether production/manufacturing efficiency can be improved</li>
+            <li>Whether logistics and distribution are over-costed</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">People & Overhead</span>
+          <ul class="bucket-points">
+            <li>Whether org structure is adding unnecessary layers</li>
+            <li>Whether spans of control and headcount ratios are benchmarked</li>
+            <li>Whether shared services or outsourcing is feasible</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Process & Technology</span>
+          <ul class="bucket-points">
+            <li>Whether automation can reduce manual, repetitive tasks</li>
+            <li>Whether process waste (rework, delays) can be eliminated</li>
+            <li>Whether tech consolidation reduces software/IT spend</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="case-card theme-teal">
+      <div class="case-header">
+        <div class="case-tag">Case Type 06</div>
+        <div class="case-title">Pricing Strategy</div>
+        <div class="case-trigger">Trigger: "Should we raise prices," "pricing model," "monetization," "price for new product"</div>
+      </div>
+      <div class="case-body">
+        <div class="bucket">
+          <span class="bucket-label">Value to Customer</span>
+          <ul class="bucket-points">
+            <li>What willingness to pay looks like across customer segments</li>
+            <li>Whether perceived value matches current price positioning</li>
+            <li>Whether value-based pricing is feasible vs. cost-plus</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Competitive Dynamics</span>
+          <ul class="bucket-points">
+            <li>Where our price sits relative to direct competitors</li>
+            <li>Whether price changes will trigger competitive response</li>
+            <li>Whether switching costs protect us from price pressure</li>
+          </ul>
+        </div>
+        <div class="bucket">
+          <span class="bucket-label">Internal Economics</span>
+          <ul class="bucket-points">
+            <li>Whether our cost structure supports the target margin at new price</li>
+            <li>Whether volume elasticity could offset or erode price increases</li>
+            <li>Whether tiered/bundled pricing optimizes across segments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ SECTION 3: TRIGGERS ═══════════════════ -->
+<div id="triggers" class="section content">
+  <p class="sec-title">Mental Trigger Map</p>
+  <p class="sec-sub">When you hear these keywords, your brain should immediately fire the corresponding framework. Train this until it's automatic.</p>
+
+  <table class="triggers-table">
+    <thead>
+      <tr>
+        <th>Keywords You'll Hear</th>
+        <th>Instant Mental Map</th>
+        <th>Case Type</th>
+        <th>First Question to Ask</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="kw-pill">profits down</span>
+          <span class="kw-pill">margins shrinking</span>
+          <span class="kw-pill">EBITDA dropped</span>
+          <span class="kw-pill">losing money</span>
+        </td>
+        <td style="color:#fff">Revenue − Cost → isolate which side</td>
+        <td><span class="type-badge" style="background:rgba(30,140,140,0.15);color:#2ab8b8;">Profitability</span></td>
+        <td style="color:var(--muted);">"Is this a revenue problem, a cost problem, or both?"</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="kw-pill">enter market</span>
+          <span class="kw-pill">new country</span>
+          <span class="kw-pill">launch product</span>
+          <span class="kw-pill">expand</span>
+        </td>
+        <td style="color:#fff">Market ✓ → Ability to win ✓ → How to enter</td>
+        <td><span class="type-badge" style="background:rgba(184,76,106,0.15);color:#e06080;">Market Entry</span></td>
+        <td style="color:var(--muted);">"Is the market attractive enough to warrant entry at all?"</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="kw-pill">acquire</span>
+          <span class="kw-pill">merger</span>
+          <span class="kw-pill">buy company</span>
+          <span class="kw-pill">investment</span>
+          <span class="kw-pill">due diligence</span>
+        </td>
+        <td style="color:#fff">Strategic fit → Target quality → Deal math</td>
+        <td><span class="type-badge" style="background:rgba(201,168,76,0.15);color:#e8c97a;">M&A</span></td>
+        <td style="color:var(--muted);">"Why does this target make strategic sense for us?"</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="kw-pill">double revenue</span>
+          <span class="kw-pill">grow faster</span>
+          <span class="kw-pill">increase share</span>
+          <span class="kw-pill">new streams</span>
+        </td>
+        <td style="color:#fff">Ansoff lens: existing vs. new (market × product)</td>
+        <td><span class="type-badge" style="background:rgba(58,125,90,0.15);color:#4da876;">Growth</span></td>
+        <td style="color:var(--muted);">"Where is the highest-return growth opportunity — core or adjacent?"</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="kw-pill">cut costs</span>
+          <span class="kw-pill">inefficient</span>
+          <span class="kw-pill">operational issues</span>
+          <span class="kw-pill">turnaround</span>
+        </td>
+        <td style="color:#fff">Supply → People/Overhead → Process/Tech</td>
+        <td><span class="type-badge" style="background:rgba(106,76,184,0.15);color:#8c6ce0;">Operations</span></td>
+        <td style="color:var(--muted);">"Which cost line is biggest and most controllable?"</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="kw-pill">raise prices</span>
+          <span class="kw-pill">pricing model</span>
+          <span class="kw-pill">monetize</span>
+          <span class="kw-pill">price new product</span>
+        </td>
+        <td style="color:#fff">Customer WTP → Competition → Internal cost/volume</td>
+        <td><span class="type-badge" style="background:rgba(30,140,140,0.15);color:#2ab8b8;">Pricing</span></td>
+        <td style="color:var(--muted);">"What is the customer's willingness to pay, and does it vary by segment?"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <p class="sec-title" style="font-size:24px;">The Profit Tree — Always Know This Cold</p>
+  <p class="sec-sub">The most common mental model in any business case. Memorize this structure.</p>
+
+  <div class="tree-wrap">
+    <div class="tree">
+      <div class="tree-row">
+        <div class="tree-node root">PROFIT</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:120px;">
+        <div class="connector" style="height:24px;"></div>
+        <div class="connector" style="height:24px;"></div>
+      </div>
+      <div class="tree-row" style="gap:80px;">
+        <div class="tree-node l1-r">REVENUE</div>
+        <div class="tree-node l1-c">COSTS</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:24px;">
+        <div style="display:flex;gap:80px;">
+          <div style="display:flex;gap:40px;">
+            <div class="connector" style="height:24px;"></div>
+            <div class="connector" style="height:24px;"></div>
+          </div>
+          <div style="display:flex;gap:40px;">
+            <div class="connector" style="height:24px;"></div>
+            <div class="connector" style="height:24px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tree-row" style="gap:20px;">
+        <div class="tree-node l2">Price</div>
+        <div class="tree-node l2">Volume</div>
+        <div style="width:40px;"></div>
+        <div class="tree-node l2">Fixed Costs</div>
+        <div class="tree-node l2">Variable Costs</div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:20px;margin-top:20px;">
+        <div style="display:flex;gap:80px;">
+          <div style="display:flex;gap:20px;">
+            <div class="connector" style="height:20px;"></div>
+            <div class="connector" style="height:20px;"></div>
+          </div>
+          <div style="width:40px;"></div>
+          <div style="display:flex;gap:20px;">
+            <div class="connector" style="height:20px;"></div>
+            <div class="connector" style="height:20px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tree-row" style="gap:10px;">
+        <div class="tree-node l2" style="font-size:10px;">Mix</div>
+        <div class="tree-node l2" style="font-size:10px;">Customer #</div>
+        <div style="width:40px;"></div>
+        <div class="tree-node l2" style="font-size:10px;">Overhead / SG&A</div>
+        <div class="tree-node l2" style="font-size:10px;">COGS / Labor</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SECTION 4: BUILD ═══════════════════ -->
+<div id="build" class="section content">
+  <p class="sec-title">How to Build a Framework Live</p>
+  <p class="sec-sub">The 90-second process from case prompt to structured framework.</p>
+
+  <div class="blocks-grid">
+    <div class="block-card">
+      <div class="block-num">01</div>
+      <div class="block-title">Identify the Case Type</div>
+      <div class="block-desc">Listen for trigger words. Mentally tag it: Profitability? Growth? Entry? M&A? This immediately narrows your framework choice.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">02</div>
+      <div class="block-title">Choose Your Logic Spine</div>
+      <div class="block-desc">Pick the dimension you'll use to slice the problem: Revenue/Cost, Internal/External, Value Chain, Customer/Company/Competition, or Ansoff Matrix.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">03</div>
+      <div class="block-title">Name 3–4 MECE Buckets</div>
+      <div class="block-desc">Label each bucket using the logic spine. Self-test: can every possible issue fit into exactly one bucket? If not, restructure.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">04</div>
+      <div class="block-title">Add 3 Bullets Per Bucket</div>
+      <div class="block-desc">For each bucket, write the 3 most insight-generating sub-questions. Start with "Whether…" or "To what extent…" to sound hypothesis-driven.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">05</div>
+      <div class="block-title">Tailor to the Context</div>
+      <div class="block-desc">Replace generic terms with the client's specifics. Don't say "Market." Say "US premium skincare market." This shows you listened.</div>
+    </div>
+    <div class="block-card">
+      <div class="block-num">06</div>
+      <div class="block-title">Signal Your Prioritization</div>
+      <div class="block-desc">Say out loud: "I'd like to start with [bucket X] because it's most likely to isolate the core issue." McKinsey rewards hypothesis-first thinking.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="rule-box" style="border-color:var(--teal);background:linear-gradient(135deg,rgba(30,140,140,0.08),rgba(30,140,140,0.02));">
+    <h3 style="color:var(--teal-light);">Logic Spines — Your Framework Generators</h3>
+    <ul class="rule-list">
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">Revenue / Cost</strong> → Best for profitability and pricing cases. Always your first cut on a P&L question.</li>
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">Internal / External</strong> → Best for diagnosing why performance changed. Internal = controllable; External = market forces.</li>
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">3C's (Customer / Company / Competition)</strong> → Best for market entry and strategy. Who buys, can we win, and who stands in the way?</li>
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">Value Chain</strong> → Best for operations cases. Follow the product from supply to delivery and find where cost or quality leaks out.</li>
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">Ansoff Matrix (Market × Product)</strong> → Best for growth. Existing vs. new on both axes gives four clean, MECE growth avenues.</li>
+      <li style="color:var(--cream);"><strong style="color:var(--teal-light);">Strategic Fit / Financial Return / Execution Risk</strong> → Best for M&A and investment cases. Covers why, whether it's worth it, and whether we can pull it off.</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="sec-title" style="font-size:24px;">Opening Script Template</p>
+  <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px;margin-top:16px;">
+    <p style="font-family:'DM Mono',monospace;font-size:13px;color:var(--cream);line-height:2;">
+      <span style="color:var(--muted);">// Say this after your 1–2 min of silent structuring</span><br><br>
+      "To approach this problem, I'd like to organize my thinking into <span style="color:var(--gold);">[3/4]</span> areas.<br><br>
+      First, I'll look at <span style="color:var(--teal-light);">[Bucket 1]</span> — specifically [sub-point 1], [sub-point 2], and [sub-point 3].<br><br>
+      Second, <span style="color:var(--rose-light);">[Bucket 2]</span> — I want to understand [sub-point 1], [sub-point 2], and [sub-point 3].<br><br>
+      Third, <span style="color:var(--sage-light);">[Bucket 3]</span> — covering [sub-point 1], [sub-point 2], and [sub-point 3].<br><br>
+      I'd like to start with <span style="color:var(--gold);">[Bucket X]</span> because I hypothesize that <span style="color:var(--gold);">[your hypothesis]</span> is the most likely driver of [the problem]. Does that structure make sense to you?"
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════ SECTION 5: QUICK REF ═══════════════════ -->
+<div id="quickref" class="section content">
+  <p class="sec-title">Quick Reference Card</p>
+  <p class="sec-sub">Scan this in the 30 seconds before your interview. Print it. Internalize it.</p>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <h4>Case Type → Framework</h4>
+      <div class="qr-item"><span class="qr-key">Profitability</span><span class="qr-val">Revenue / Cost / External</span></div>
+      <div class="qr-item"><span class="qr-key">Market Entry</span><span class="qr-val">Attractiveness / Ability / Strategy</span></div>
+      <div class="qr-item"><span class="qr-key">M&A</span><span class="qr-val">Fit / Target Quality / Deal Math</span></div>
+      <div class="qr-item"><span class="qr-key">Growth</span><span class="qr-val">Core / Adjacent / New Products</span></div>
+      <div class="qr-item"><span class="qr-key">Operations</span><span class="qr-val">Supply / People / Process & Tech</span></div>
+      <div class="qr-item"><span class="qr-key">Pricing</span><span class="qr-val">Customer WTP / Competition / Cost</span></div>
+    </div>
+
+    <div class="qr-card">
+      <h4>Logic Spine → Best For</h4>
+      <div class="qr-item"><span class="qr-key">Revenue / Cost</span><span class="qr-val">Profitability, Pricing</span></div>
+      <div class="qr-item"><span class="qr-key">Internal / External</span><span class="qr-val">Diagnosis, Decline</span></div>
+      <div class="qr-item"><span class="qr-key">3C's</span><span class="qr-val">Entry, Strategy</span></div>
+      <div class="qr-item"><span class="qr-key">Value Chain</span><span class="qr-val">Operations, Turnaround</span></div>
+      <div class="qr-item"><span class="qr-key">Ansoff Matrix</span><span class="qr-val">Growth</span></div>
+      <div class="qr-item"><span class="qr-key">Fit / Return / Risk</span><span class="qr-val">M&A, Investment</span></div>
+    </div>
+
+    <div class="qr-card">
+      <h4>MECE Self-Check (30 sec)</h4>
+      <div class="qr-item"><span class="qr-key">No overlap?</span><span class="qr-val">Mutually Exclusive ✓</span></div>
+      <div class="qr-item"><span class="qr-key">Full coverage?</span><span class="qr-val">Collectively Exhaustive ✓</span></div>
+      <div class="qr-item"><span class="qr-key">Parallel logic?</span><span class="qr-val">Same abstraction level ✓</span></div>
+      <div class="qr-item"><span class="qr-key">3–4 buckets?</span><span class="qr-val">Not more, not less ✓</span></div>
+      <div class="qr-item"><span class="qr-key">3 bullets each?</span><span class="qr-val">Signal-rich, specific ✓</span></div>
+    </div>
+
+    <div class="qr-card">
+      <h4>Power Phrases</h4>
+      <div class="qr-item"><span class="qr-key">Hypothesis-first</span><span class="qr-val">"I hypothesize that…"</span></div>
+      <div class="qr-item"><span class="qr-key">Sub-question</span><span class="qr-val">"Whether… / To what extent…"</span></div>
+      <div class="qr-item"><span class="qr-key">Prioritize</span><span class="qr-val">"I'd start with X because…"</span></div>
+      <div class="qr-item"><span class="qr-key">Transition</span><span class="qr-val">"That tells me… so next I'd look at…"</span></div>
+      <div class="qr-item"><span class="qr-key">Synthesis</span><span class="qr-val">"The root cause appears to be…"</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="rule-box" style="border-color:var(--rose);background:linear-gradient(135deg,rgba(184,76,106,0.08),rgba(184,76,106,0.02));">
+    <h3 style="color:var(--rose-light);">The McKinsey Mindset — Beyond the Framework</h3>
+    <ul class="rule-list">
+      <li>Frameworks are the starting point, not the answer. The insight comes from what you find inside each bucket.</li>
+      <li>Always lead with a hypothesis. Don't say "I need to look at revenue." Say "I believe revenue is the issue — let me test that."</li>
+      <li>Synthesize as you go. After each data point: "This suggests…" Don't just collect data, interpret it.</li>
+      <li>The final recommendation must be a clear action: "We should / should not do X, because Y, and here's what to do first."</li>
+      <li>If you're lost, say: "Let me take a step back and make sure my framework is still the right lens." Interviewers love self-awareness.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="scroll-hint">scroll for more ↓</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
